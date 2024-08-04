@@ -1,0 +1,39 @@
+---
+import type {CollectionEntry, CollectionKey} from 'astro:content';
+interface Props {
+    entries: CollectionEntry<CollectionKey>[];
+    title?: string;
+}
+
+// `post` 将匹配 `blog` 集合 schema 类型
+const {entries, title} = Astro.props;
+
+import {Expansion} from '@shawspring/astro-components';
+
+const {pathname} = Astro.url;
+const liClass =
+    'h-8 flex items-center hover:underline hover:text-emerald-700 dark:hover:text-emerald-200 pl-2';
+---
+
+<Expansion heading={title || entries[0].collection}>
+    <ul>
+        {
+            entries.map((entry) => (
+                <li
+                    class:list={[
+                        pathname ===
+                            `${import.meta.env.BASE_URL}/${entry.collection}/${entry.slug}` &&
+                            'bg-emerald-300 dark:bg-emerald-900 shadow rounded',
+                        liClass,
+                    ]}>
+                    <a
+                        class="w-full block h-full cursor-pointer leading-8"
+                        href={`${import.meta.env.BASE_URL}/${entry.collection}/${entry.slug}`}>
+                        {entry.slug}
+                    </a>
+                    {entry.data.draft&&<span class="text-sm">(darft)</span>}
+                </li>
+            ))
+        }
+    </ul>
+</Expansion>

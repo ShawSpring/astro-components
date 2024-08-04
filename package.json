@@ -1,0 +1,40 @@
+{
+  "name": "astro-components-monorepo",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:website": "pnpm --filter=website run build",
+    "build:plugin": "pnpm --filter=rehype-callout run build",
+    "build": "pnpm run build:plugin && pnpm run build:website",
+    "preview": "pnpm run build&&pnpm --filter=website run preview",
+    "publish": "pnpm --filter=rehype-callout run publish"
+  },
+  "author": "ShawSpring <chunlaixiao@163.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3",
+    "@types/hast": "^3.0.4",
+    "@types/node": "^20.0.0",
+    "rehype-stringify": "^10.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.5.4",
+    "unified": "^11.0.5", 
+    "vitest": "^2.0.3"
+  },
+  "dependencies": {
+    "hast-util-from-html": "^2.0.1",
+    "hast-util-is-element": "^3.0.0",
+    "hast-util-to-html": "^9.0.1",
+    "hast-util-to-string": "^3.0.0",
+    "hastscript": "^9.0.0",
+    "npm-to-yarn": "^2.2.1",
+    "rehype-expressive-code": "^0.35.3",
+    "rehype-format": "^5.0.0",
+    "rehype-parse": "^9.0.0",
+    "unist-util-visit": "^5.0.0"
+  },
+  "packageManager": "pnpm@9.4.0"
+}

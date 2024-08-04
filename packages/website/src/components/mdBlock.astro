@@ -1,0 +1,59 @@
+---
+// import {Code} from 'astro:components';
+import {Code} from 'astro-expressive-code/components';
+
+import {unified} from 'unified';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeFormat from 'rehype-format';
+import rehypeStringify from 'rehype-stringify';
+
+import rehypeCallout, {type Config} from 'rehype-callout';
+
+import rehypeExpressiveCode, {type RehypeExpressiveCodeOptions} from 'rehype-expressive-code';
+const rehypeExpressiveCodeOptions: RehypeExpressiveCodeOptions = {
+    themes: ['dracula', 'solarized-light'],
+    // <html data-theme="light/dark">
+    themeCssSelector: (theme) => `[data-theme='${theme.type}']`,
+};
+
+const runPluginFromMarkdown = async (input: string, config: Partial<Config> = {}) => {
+    const processor = unified()
+        .use(remarkParse, {fragment: true})
+        .use(remarkRehype)
+        .use(rehypeCallout, config)
+        .use(rehypeExpressiveCode, rehypeExpressiveCodeOptions)
+        .use(rehypeFormat)
+        .use(rehypeStringify);
+    const output = await processor.process(input);
+    return output.toString();
+};
+
+interface Props {
+    md: string;
+    /**
+     * whether display output html,default is true
+     */
+    previewHtml?: boolean;
+}
+const {md, previewHtml = true} = Astro.props;
+const html = await runPluginFromMarkdown(md);
+
+import {Tabs, TabItem} from '@shawspring/astro-components';
+---
+
+<Tabs contentCls="!mt-0">
+    <TabItem label="markdown">
+        <Code code={md} lang="markdown" />
+    </TabItem>
+    <TabItem label="output">
+        <Fragment set:html={html} />
+    </TabItem>
+    {
+        previewHtml && (
+            <TabItem label="html">
+                <Code code={html.trim()} lang="html" />
+            </TabItem>
+        )
+    }
+</Tabs>

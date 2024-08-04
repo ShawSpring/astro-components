@@ -1,0 +1,191 @@
+---
+import {TabItemTagname} from './TabItem.astro';
+
+import {fromHtml} from 'hast-util-from-html';
+import {toHtml} from 'hast-util-to-html';
+
+interface Props {
+	/**
+	 * All `<Tabs>` on a page with the same `syncKey` value will display the same active panel.
+	 */
+	syncKey?: string;
+	/**
+	 * at least one children required for slot
+	 */
+	children: any;
+	/**
+	 * custom class names for content of tab-item
+	 */
+	contentCls?: string;
+}
+
+const {syncKey, contentCls} = Astro.props;
+
+const html = await Astro.slots.render('default');
+const data = parseTabs(html);
+
+function parseTabs(html: string): Map<string, string> {
+	const hast = fromHtml(html, {fragment: true});
+	const data = new Map();
+	if (!('children' in hast) || hast.children.length === 0) return data;
+	for (const node of hast.children) {
+		if (!(node.type === 'element' && node.tagName === TabItemTagname)) {
+			continue;
+		}
+		if (!node.properties.dataLabel) {
+			throw new Error('Missing prop `label` on `<TabItem>` component.');
+		}
+
+		for (const child of node.children) {
+			if (child.type === 'element' && contentCls) {
+				child.properties.class = `${child.properties.class || ''} ${contentCls}`.trim();
+			}
+		}
+		data.set(node.properties.dataLabel as string, toHtml(node.children));
+	}
+	return data;
+}
+---
+
+{
+	data.size > 0 ? (
+		<ss-tabs data-sync-key={syncKey}>
+			<nav class="tabs-nav" role="tablist">
+				{Array.from(data.keys()).map((label, i) => (
+					<div class:list={['tabs-nav-item', i === 0 && 'active']} role="tab">
+						{label}
+					</div>
+				))}
+			</nav>
+			<div class="tabs-content">
+				{Array.from(data.values()).map((content, i) => (
+					<div class:list={['tabs-content-item', i === 0 && 'active']} role="tabpanel">
+						<Fragment set:html={content} />
+					</div>
+				))}
+			</div>
+		</ss-tabs>
+	) : (
+		<Fragment set:html={'<!-- empty  tabs -->'}> </Fragment>
+	)
+}
+
+<script>
+	class SSTabs extends HTMLElement {
+		navItems: NodeListOf<Element> | undefined;
+		contentItems: NodeListOf<Element> | undefined;
+		constructor() {
+			super();
+			// don't use shadow dom for pure SSG.
+		}
+
+		static events = Object.create(null);
+		onClick(index: number) {
+			this.navItems!.forEach((item) => {
+				item.classList.remove('active');
+				item.ariaSelected = 'false';
+			});
+			this.navItems![index].classList.add('active');
+			this.navItems![index].ariaSelected = 'true';
+			this.contentItems!.forEach((item) => item.classList.remove('active'));
+			this.contentItems![index].classList.add('active');
+		}
+		connectedCallback() {
+			this.navItems = this.querySelectorAll('.tabs-nav-item');
+			this.contentItems = this.querySelectorAll('.tabs-content-item');
+
+			const syncKey = this.getAttribute('data-sync-key');
+			if (syncKey) {
+				if (!SSTabs.events[syncKey]) {
+					SSTabs.events[syncKey] = [];
+				}
+				SSTabs.events[syncKey].push(this.onClick.bind(this));
+			}
+			this.navItems.forEach((item, index) => {
+				item.addEventListener('click', () => {
+					if (syncKey) {
+						for (const onClick of SSTabs.events[syncKey]) {
+							onClick(index);
+						}
+					} else {
+						this.onClick(index);
+					}
+				});
+			});
+		}
+	}
+	customElements.define('ss-tabs', SSTabs);
+</script>
+
+<style>
+	ss-tabs {
+		--color-active: teal;
+		--color-normal: #999;
+	}
+
+	.tabs-nav {
+		display: flex;
+		flex-direction: row;
+		position: relative;
+	}
+	.tabs-nav::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -10;
+		border-bottom: 2px solid var(--color-normal);
+	}
+	.tabs-nav-item {
+		padding: 6px 24px;
+		cursor: pointer;
+		opacity: 0.8;
+		background-color: inherit;
+		border-bottom: 2px solid transparent;
+	}
+	.tabs-nav-item:hover {
+		opacity: 1;
+		border-color: var(--color-active);
+	}
+	.tabs-nav-item:first-child {
+		border-start-start-radius: 8px;
+	}
+	.tabs-nav-item:last-child {
+		border-start-end-radius: 8px;
+	}
+	.tabs-nav-item.active {
+		font-weight: bold;
+		background-color: inherit;
+		border-color: var(--color-active);
+		opacity: 1;
+	}
+
+	.tabs-content {
+		margin-bottom: 2rem;
+	}
+
+	.tabs-content-item {
+		display: none;
+		animation: swing-in-top-fwd 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+	}
+
+	.tabs-content-item.active {
+		display: block;
+	}
+
+	@keyframes swing-in-top-fwd {
+		0% {
+			-webkit-transform: rotateX(-100deg);
+			transform: rotateX(-100deg);
+			-webkit-transform-origin: top;
+			transform-origin: top;
+			opacity: 0;
+		}
+		100% {
+			-webkit-transform: rotateX(0deg);
+			transform: rotateX(0deg);
+			-webkit-transform-origin: top;
+			transform-origin: top;
+			opacity: 1;
+		}
+	}
+</style>

@@ -1,0 +1,189 @@
+---
+title: Tabs
+---
+
+import { Tabs, TabItem } from '@shawspring/astro-components';  
+
+
+## Usage
+
+
+````md title="example.mdx" 
+<Tabs>
+<TabItem label="counterStore.ts">
+```ts
+  ... 
+```
+</TabItem>
+<TabItem label="counterStore.js">
+```js  
+  ...
+```
+</TabItem>
+</Tabs>
+````
+
+The code above generates the following on the page:
+
+<Tabs>
+<TabItem label="counterStore.ts">
+```ts
+export const useCounterStore = defineStore('counter', {
+  state: () => ({
+    count: 0,
+  }),
+  getters: {
+    doubleCount(state) {
+      return state.count * 2
+    },
+    doubleCountPlusOne(): number {
+      return this.doubleCount + 1
+    },
+  },
+})
+```
+</TabItem>
+<TabItem label="counterStore.js">
+```js
+// 你可以在 JavaScript 中使用 JSDoc (https://jsdoc.app/tags-returns.html)
+export const useCounterStore = defineStore('counter', {
+  state: () => ({
+    count: 0,
+  }),
+  getters: {
+    // 类型是自动推断出来的，因为我们没有使用 `this`
+    doubleCount: (state) => state.count * 2,
+    // 这里我们需要自己添加类型(在 JS 中使用 JSDoc)
+    // 可以用 this 来引用 getter
+    /**
+     * 返回 count 的值乘以 2 加 1
+     *
+     * @returns {number}
+     */
+    doubleCountPlusOne() {
+      // 自动补全 ✨
+      return this.doubleCount + 1
+    },
+  },
+})
+```
+</TabItem>
+</Tabs>
+
+## Props
+```ts
+interface Props {
+	/**
+	 * All `<Tabs>` on a page with the same `syncKey` value will display the same active panel.
+	 */
+	syncKey?: string;
+	/**
+	 * at least one children required for slot
+	 */
+	children: any;
+	/**
+	 * custom class names for content of tab-item
+	 */
+	contentCls?: string;
+}
+```
+
+## Synced tabs   
+All `<Tabs>` on a page with the same `syncKey` value will display the same active panel.  
+
+````md title="example.mdx" {1,19}  
+<Tabs syncKey="pkg"> 
+  <TabItem label="npm">
+    ```bash
+    npm install axios
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add axios
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add axios
+    ```
+  </TabItem>
+  <TabItem label="bun">
+    ```bash
+    bun add axios
+    ```
+  </TabItem>
+</Tabs>
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">...</TabItem>
+  <TabItem label="yarn">...</TabItem>
+  <TabItem label="pnpm">...</TabItem>
+  <TabItem label="bun">...</TabItem>
+</Tabs>
+````
+
+The code above generates the following on the page:
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm install axios
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add axios
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add axios
+    ```
+  </TabItem>
+  <TabItem label="bun">
+    ```bash
+    bun add axios
+    ```
+  </TabItem>
+</Tabs>
+
+
+
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm create vue@latest
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn create vue@latest
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm create vue@latest
+    ```
+  </TabItem>
+   <TabItem label="bun">
+    ```bash
+    bun create vue@latest
+    ```
+  </TabItem>
+</Tabs>
+
+
+## under the hood
+
+
+>[!Hint] `<Tabs>` will be transformed to **custom element**:  
+> ```js
+> <ss-tabs data-sync-key={syncKey}>
+> </ss-tabs>
+> ```
+
+>[!Hint]  do nothing in CSR（Client-Side Rendering）  
+> without shadowRoot, all js just works for hydration.   
+> so SSG will work well.  

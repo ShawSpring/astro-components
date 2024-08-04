@@ -1,0 +1,55 @@
+---
+import Header from '../components/header.astro';
+import {ScrollObserver} from 'astro-scroll-observer';
+import BacktoTop from '@/components/backtoTop.astro';
+
+import ThemeScript from '@/components/themeScript.astro';
+
+import './index.css';
+import 'rehype-callout/css';
+
+import Sidebar from '@/components/sidebar.astro';
+import logo from '@/assets/ss.png';
+
+interface Props {
+	title: string;
+	description?: string;
+	keywords?: string;
+	header:string
+}
+const {title,keywords,
+description ="docs for shaw spring's package"} = Astro.props;
+---  
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		{keywords && <meta name="keywords" content={keywords} />}
+		<link rel="icon" type="image/png" href={logo.src} />
+		<meta name="generator" content={Astro.generator} />
+		<ThemeScript />
+		<ScrollObserver />
+
+		<title>{title}</title>
+	</head>
+	<body class="relative dark:bg-gray-800 dark:text-slate-100 bg-slate-50 text-slate-900\
+	  [--sidebar-w:16rem] flex justify-end">
+		<div class="relative w-[calc(100%-var(--sidebar-w))]">      
+			<Header header={Astro.props.header} /> 
+			<main class="container mx-auto lg:w-[800px] px-2 pt-8 mb-16 mt-[var(--header-h)]">
+				<article
+					class="mx-auto prose prose-green dark:prose-indigo prose-blockquote:prose-sm lg:prose-lg \
+				 dark:prose-invert prose-p:text-justify prose-img:rounded-xl">
+					<slot />
+					<!-- markdown slot -->
+				</article>
+			</main>
+		</div>
+		<Sidebar/>
+		<BacktoTop />
+		
+	</body>
+</html>

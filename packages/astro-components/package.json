@@ -1,0 +1,17 @@
+{
+  "name": "@shawspring/astro-components",
+  "version": "0.0.0",
+  "description": "astro components",
+  "private": "false",
+  "main": "src/index.astro",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "ShawSpring <chunlaixiao@163.com>",
+  "license": "ISC",
+  "dependencies": {
+    "hast-util-from-html": "^2.0.1",
+    "hast-util-to-html": "^9.0.1"
+  }
+}

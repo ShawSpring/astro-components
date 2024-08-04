@@ -1,0 +1,46 @@
+---
+
+---
+
+<a
+    href="#" 
+    title="Back to top"
+    class="bg-sky-200 hover:bg-teal-300 bg-opacity-60 dark:bg-sky-950 dark:hover:bg-teal-800">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" d="M12 5v18M4 13l8-8l8 8M2 2h20"
+        ></path>
+    </svg>
+</a>
+
+<style>
+    a {
+        position: fixed;
+        display: block;
+        padding: 12px 8px;
+        bottom: 4rem;
+        right: 2rem;
+        border-radius: 8px;
+
+        /* background: #d0e0d0; */
+        box-shadow:
+            4px 4px 4px #bababa,
+            -4px -4px 4px #f0f0f0;
+
+        transition: transform 0.3s;
+        transform: translateY(10rem);
+    }
+    :global([data-theme='dark']) a {
+        /* background: #362633; */
+        box-shadow:
+            4px 4px 4px #232330,
+            -4px -4px 4px #232330;
+    }
+
+    :global([data-is-top='false'][data-is-scrolling-up='true']) a {
+        transform: translateY(0rem);
+    }
+    :global([data-is-bottom='true']) a {
+        transform: translateY(0rem);
+    }
+   
+</style>

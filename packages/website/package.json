@@ -1,0 +1,33 @@
+{
+  "name": "website",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build", 
+    "preview": "astro preview",  
+    "astro": "astro",
+    "lint": "biome lint --write --unsafe ./src"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.8.2",
+    "@astrojs/mdx": "^3.1.3",
+    "@astrojs/tailwind": "^5.1.0",
+    "@shawspring/astro-components": "workspace:*",
+    "astro": "^4.12.1",
+    "astro-expressive-code": "^0.35.3",
+    "astro-scroll-observer": "^0.5.3",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-callout": "workspace:*",
+    "rehype-slug": "^6.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.13",
+    "postcss-preset-env": "^9.6.0",
+    "tailwindcss": "^3.4.6"
+  },
+  "browserslist": [
+    "supports es6-module"
+  ]
+}

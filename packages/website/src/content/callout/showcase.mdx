@@ -1,0 +1,82 @@
+---
+title: Showcase
+---
+
+
+import MdBlock from "@/components/mdBlock.astro";
+
+
+<MdBlock md={`
+> [!tip]  🥰 trailing whitespace  
+> Line break in Markdown is "two or more spaces at the end of the line".
+`}>
+</MdBlock>
+
+
+<MdBlock md={`
+> [!abstract]   
+> first line is empty.  
+> so title will be callout type.
+`}>
+</MdBlock>
+
+<MdBlock md={`
+> [!faq]+ foldable callout with content absent.
+`}>
+</MdBlock>
+
+<MdBlock md={`
+> [!example]+ details and summary under the hood.  
+>   🥰  🧐
+`}>
+</MdBlock>
+
+<MdBlock md={`
+>[!dontexist] type doesn't exist.  
+> **note** will be used as default.
+`}>
+</MdBlock>
+
+<MdBlock md={`
+> normal blockquote， keep it as is.
+> ~~there is no trailing whitespace after first line ~~
+> 小尾巴
+`}>
+</MdBlock>
+
+<MdBlock md={`
+>[!note] outer title  
+> outer content
+> >[!success] nested callout  
+> > nested content
+`}>
+</MdBlock>
+
+<MdBlock md={`
+>[!note] outer title  
+> outer content
+> >[!check] nested code block
+> > \`\`\`js
+> > const a = 1;
+>> console.log( a + 100); 
+> > \`\`\`
+> > code block can be hightlighted by other rehype plugins.
+`}> 
+</MdBlock>
+
+
+<MdBlock md={`
+>[!dontexist] **no plain text** 
+> 1. abc
+> 2. def
+> 3. ghi
+`}>
+</MdBlock>
+
+<MdBlock md={`
+>[!error]no space between callout type and title.   
+> 1. abc
+> 2. def
+> 3. ghi
+`}>
+</MdBlock>

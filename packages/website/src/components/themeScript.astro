@@ -1,0 +1,47 @@
+<script is:inline>
+    const ItemKey = 'theme';
+    const themeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+
+    if (typeof localStorage !== 'undefined') {
+        localStorage = {
+            getItem: () => undefined,
+            setItem: () => undefined,
+        };
+    }
+   /* 这一段必须是 is:inline 置于<head>中，防止flush of style */
+    const getThemePreference = () => {
+        if (localStorage.getItem('theme') !== 'system') {
+            return localStorage.getItem(ItemKey);
+        }
+        return themeMedia.matches ? 'dark' : 'light';
+    };
+    document.documentElement.setAttribute('data-theme', getThemePreference());
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const themeSelect = document.querySelector('select[name="theme"]');
+        if (!themeSelect){
+            console.warn('select[name="theme"] not found');
+            return
+        }
+        themeSelect.value = localStorage.getItem(ItemKey) || 'system';
+        themeSelect.addEventListener('change', (event) => {
+            // @ts-ignore
+            const theme = event.target.value;
+            if (theme === 'system') {
+                document.documentElement.setAttribute(
+                    'data-theme',
+                    themeMedia.matches ? 'dark' : 'light',
+                );
+            } else {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+            localStorage.setItem(ItemKey, theme);
+        });
+        // 监听系统主题变化
+        themeMedia.addEventListener('change', (e) => {
+          if(themeSelect.value === 'system'){
+            document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+          } 
+        })
+    });
+</script>

@@ -1,0 +1,26 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+import type {GetStaticPaths} from 'astro';
+
+
+import {calloutEntries} from '@/utils/getCollection'
+
+export const getStaticPaths = (async () => {
+    return calloutEntries.map((entry) => ({
+        params: {slug: entry.slug},
+        props: {entry},
+    }));
+}) satisfies GetStaticPaths;
+
+const {entry} = Astro.props;
+const {Content} = await entry.render(); 
+---
+
+<Layout
+    title={`${entry.slug} | rehype-callout`}
+    header={entry.data.title}
+    description="A rehype plugin to parse Obsidian callouts"
+    keywords="callout, obsidian, rehype, markdown,admonitions">
+    <Content />
+</Layout>
