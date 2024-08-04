@@ -54,10 +54,10 @@ const {heading, expand = true, class: className} = Astro.props;
             const content = divs[1] as HTMLDivElement;
             const toggle = divs[0] as HTMLElement;
 
-            this.firstElementChild?.addEventListener('click', (e) => {
+            this.firstElementChild?.addEventListener('click', () => {
                 const state = toggle.getAttribute('aria-expanded') === 'true' ? 'false' : 'true';
                 console.log(toggle.getAttribute('aria-expanded'));
-                toggle.setAttribute('aria-expanded', state);
+                toggle.setAttribute('aria-expanded', state); 
                 if (state === 'true') {
                     content.style.setProperty('height', 'auto');
                     const height = content.getBoundingClientRect().height;

@@ -21,10 +21,11 @@
     "remark-rehype": "^11.1.0",
     "rimraf": "^6.0.1",
     "typescript": "^5.5.4",
-    "unified": "^11.0.5", 
+    "unified": "^11.0.5",
     "vitest": "^2.0.3"
   },
   "dependencies": {
+    "astro": "^4.12.1",
     "hast-util-from-html": "^2.0.1",
     "hast-util-is-element": "^3.0.0",
     "hast-util-to-html": "^9.0.1",

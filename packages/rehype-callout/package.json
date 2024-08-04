@@ -1,6 +1,6 @@
 {
   "name": "rehype-callout",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A rehype plugin for Obsidian callouts",
   "main": "dist/index.js",
   "type": "module",
@@ -26,14 +26,15 @@
     "rehype-plugin"
   ],
   "author": "ShawSpring <chunlaixiao@163.com>",
-  "repository": {
+  "repository": { 
     "type": "git",
-    "url": "git+https://github.com/ShawSpring/astro-components.git"
+    "url": "git+https://github.com/ShawSpring/astro-components.git",
+    "directory": "packages/rehype-callout"
   },
   "bugs": {
     "url": "https://github.com/ShawSpring/astro-components/issues"
   },
-  "homepage": "https://shawspring.github.io/astro-components/",
+  "homepage": "https://shawspring.github.io/astro-components/callout/intro/",
   "license": "MIT",
   "files": [
     "dist/*",

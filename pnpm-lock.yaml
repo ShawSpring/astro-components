@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      astro:
+        specifier: ^4.12.1
+        version: 4.12.1(@types/node@20.14.10)(terser@5.31.3)(typescript@5.5.4)
       hast-util-from-html:
         specifier: ^2.0.1
         version: 2.0.1
@@ -72,6 +75,9 @@ importers:
 
   packages/astro-components:
     dependencies:
+      astro:
+        specifier: ^4.1.0
+        version: 4.12.1(@types/node@20.14.10)(terser@5.31.3)(typescript@5.5.4)
       hast-util-from-html:
         specifier: ^2.0.1
         version: 2.0.1
