@@ -6,7 +6,7 @@ order: 0
 
 This is a rehype plugin that parses Obsidian's callout syntax
 
-[github repo](https://github.com/ShawSpring/rehype-callout/tree/main/packages/rehype-callout)
+[github repo](https://github.com/ShawSpring/astro-components/tree/main/packages/rehype-callout)
 
 [npm package](https://www.npmjs.com/package/rehype-callout)  
 
@@ -67,7 +67,7 @@ A plus sign expands the callout by default, and a minus sign collapses it instea
 
 
 ### usage
-```sh title="install" npm2yarn 
+```sh title="install"  
 npm install rehype-callout
 ```
 

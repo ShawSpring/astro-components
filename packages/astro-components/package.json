@@ -16,12 +16,12 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ShawSpring/astro-components.git",
-    "directory": "packages/astro-components"
+    "directory": "packages/astro-components" 
   },
   "bugs": {
-    "url": "https://github.com/ShawSpring/astro-components/issues"
+    "url": "https://github.com/ShawSpring/astro-components/issues"  
   },
-  "homepage": "https://shawspring.github.io/astro-components/components/tabs/",
+  "homepage": "https://github.com/ShawSpring/astro-components/components/guide",  
   "license": "MIT",
   "dependencies": {
     "hast-util-from-html": "^2.0.1",

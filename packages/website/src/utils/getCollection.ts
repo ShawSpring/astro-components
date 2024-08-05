@@ -1,7 +1,7 @@
 /**
  * 有几个地方用到，所有需要提出来。 sidebar.astro, 和[...slug].astro中。
  */
-import { getCollection,type CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 
 import { PROD } from "@/utils/metaEnv";
 

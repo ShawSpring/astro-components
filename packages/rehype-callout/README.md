@@ -5,7 +5,7 @@ This package is a [unified](https://github.com/unifiedjs/unified)  ([rehype](htt
 
 Issues and pull requests are welcomed!
 
-[website](https://shawspring.github.io/rehype-callout/showcase/)
+for docs and preview, see  [website](https://shawspring.github.io/astro-components/callout/intro/)
 
 ## Features
 
