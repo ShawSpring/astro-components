@@ -12,14 +12,18 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const {entry} = Astro.props;
-const {Content} = await entry.render();
 const keywords =`Astro components,${entry.data.keywords||''}`;
+
+const {Content,remarkPluginFrontmatter} = await entry.render();
+
+const lastModified = remarkPluginFrontmatter.lastModified;
 ---
 
 <Layout
     title={`${entry.slug} | ${entry.collection}`}
     header={entry.data.title}
     keywords={keywords}
+    lastModified={lastModified}
     description="Astro components">
     <Content />
 </Layout>

@@ -1,0 +1,13 @@
+---
+// import type {HTMLAttributes} from 'astro/types';
+interface Props {
+    lastModified?: string;
+    class?: string;
+}
+
+const {class: outClass, lastModified} = Astro.props;
+---
+
+<footer class:list={['flex justify-end',outClass]}>
+    {lastModified && <div class="text-sm text-slate-500">last modified: {lastModified}</div>}
+</footer>

@@ -9,19 +9,20 @@ import './index.css';
 import 'rehype-callout/css';
 
 import Sidebar from '@/components/sidebar.astro';
+import Footer from '@/components/Footer.astro';
 import logo from '@/assets/ss.png';
 
 interface Props {
 	title: string;
-	description?: string;
 	keywords?: string;
-	header:string
+	header: string;
+	description?: string;
+	lastModified?: string;
 }
-const {title,keywords,
-description ="docs for shaw spring's package"} = Astro.props;
+const {title, keywords, lastModified, description = "docs for shaw spring's package"} = Astro.props;
 
 const bgAndTextClass = 'dark:bg-gray-800 dark:text-slate-100 bg-slate-50 text-slate-900';
----  
+---
 
 <!doctype html>
 <html lang="en" class="scroll-smooth">
@@ -33,13 +34,14 @@ const bgAndTextClass = 'dark:bg-gray-800 dark:text-slate-100 bg-slate-50 text-sl
 		<link rel="icon" type="image/png" href={logo.src} />
 		<meta name="generator" content={Astro.generator} />
 		<ThemeScript />
-		<ScrollObserver /> 
+		<ScrollObserver />
 		<title>{title}</title>
 	</head>
-	<body class={bgAndTextClass + " relative flex justify-end [--sidebar-w:16rem] [--header-h:4rem]"}> 
-		<div class="relative w-full md:w-[calc(100%-var(--sidebar-w))]">      
-			<Header header={Astro.props.header} class='h-[var(--header-h)]'/>  
-			<main class="container mx-auto lg:w-[800px] px-4 pt-8 mb-16 mt-[var(--header-h)]">
+	<body
+		class={bgAndTextClass + ' relative flex justify-end [--sidebar-w:16rem] [--header-h:4rem]'}>
+		<div class="relative w-full md:w-[calc(100%-var(--sidebar-w))]">
+			<Header header={Astro.props.header} class="h-[var(--header-h)]" />
+			<main class="container mx-auto lg:w-[800px] px-4 pt-8 mb-8 mt-[var(--header-h)]">
 				<article
 					class="mx-auto prose prose-green dark:prose-indigo prose-blockquote:prose-sm lg:prose-lg \
 				 dark:prose-invert prose-p:text-justify prose-img:rounded-xl">
@@ -47,16 +49,19 @@ const bgAndTextClass = 'dark:bg-gray-800 dark:text-slate-100 bg-slate-50 text-sl
 					<!-- markdown slot -->
 				</article>
 			</main>
+			<Footer lastModified={lastModified} class='container mx-auto lg:w-[800px] px-4 mb-16'/>
 		</div>
-		<Sidebar id="sidebar" class='overflow-hidden transition-transform duration-300 w-[var(--sidebar-w)] \
-		 -translate-x-[var(--sidebar-w)] md:translate-x-0'/>
+		<Sidebar
+			id="sidebar"
+			class="overflow-hidden transition-transform duration-300 w-[var(--sidebar-w)] \
+		 -translate-x-[var(--sidebar-w)] md:translate-x-0"
+		/>
 		<BacktoTop />
 	</body>
 </html>
 
-
 <style>
-	#sidebar.expanded{
+	#sidebar.expanded {
 		transform: translateX(0px);
 	}
 </style>
