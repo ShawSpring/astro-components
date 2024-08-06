@@ -5,6 +5,11 @@ import {calloutEntries, componentsEntries} from '@/utils/getCollection';
 import EntriesNav from './entriesNav.astro';
 // import {Image} from 'astro:assets';
 import logo from '@/assets/ss.png';
+import type {HTMLAttributes} from 'astro/types';
+
+interface Props extends HTMLAttributes<'aside'> {}
+
+const {class: outClass, ...rest} = Astro.props;
 
 const dividerClass =
     '[--shaodow-c:theme(colors.zinc.300/70%)] dark:[--shaodow-c:theme(colors.zinc.700/70%)] shadow-[2px_0px_2px_var(--shaodow-c)]';
@@ -13,19 +18,38 @@ const bgAndTextClass = 'dark:bg-slate-800 dark:text-slate-100 bg-slate-100 text-
 ---
 
 <aside
-    class:list={[
-        'fixed left-0 w-[var(--sidebar-w)] py-2 min-h-full px-4',
-        dividerClass,
-        bgAndTextClass,
-    ]}>
+    class:list={['fixed left-0  py-2 min-h-full px-4 z-10', dividerClass, bgAndTextClass, outClass]}
+    {...rest}>
     <div class="flex flex-col items-center">
         <a href={import.meta.env.BASE_URL}>
             <img src={logo.src} alt="logo image" width={80} height={80} />
         </a>
         <div class="text-center">Shaw spring</div>
     </div>
+    <div
+        class="absolute right-2 top-4 h-[var(--header-h)] w-[var(--header-h)] flex items-center md:hidden \
+          hover:text-sky-500 cursor-pointer rotate-180"
+        aria-label="collapse sidebar"
+        id="collapse-sidebar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 28 28">
+            <path
+                fill="currentColor"
+                d="M17.72 11.53a.75.75 0 1 1 1.06-1.06l3 3a.75.75 0 0 1 0 1.06l-3 3a.75.75 0 1 1-1.06-1.06l1.72-1.72h-5.69a.75.75 0 0 1 0-1.5h5.69zM26 7.75A3.75 3.75 0 0 0 22.25 4H5.755a3.75 3.75 0 0 0-3.75 3.75v12.5A3.75 3.75 0 0 0 5.754 24H22.25A3.75 3.75 0 0 0 26 20.25zM22.25 5.5a2.25 2.25 0 0 1 2.25 2.25v12.5a2.25 2.25 0 0 1-2.25 2.25H11.006v-17zm-12.745 0v17H5.754a2.25 2.25 0 0 1-2.25-2.25V7.75a2.25 2.25 0 0 1 2.25-2.25z"
+            ></path>
+        </svg>
+    </div>
     <nav class="dark:text-gray-200 text-gray-800 my-2 flex flex-col gap-2">
         <EntriesNav entries={calloutEntries} title="Rehype Callout" />
         <EntriesNav entries={componentsEntries} title="Astro Components" />
     </nav>
 </aside>
+
+<script>
+     window.addEventListener('DOMContentLoaded', () => {
+        const collapseSidebar = document.getElementById('collapse-sidebar');
+        const sidebar = document.getElementById('sidebar');
+        collapseSidebar!.addEventListener('click', () => {
+            sidebar!.classList.toggle('expanded');
+        });
+     });
+</script>

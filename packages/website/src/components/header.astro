@@ -1,21 +1,33 @@
 ---
 interface Props {
     header: string;
+    class?: string;
 }
-const {header} = Astro.props;
+const {header, class: outClass} = Astro.props;
 
 const dividerClass =
     '[--shaodow-c:theme(colors.zinc.300/70%)] dark:[--shaodow-c:theme(colors.zinc.700/70%)] shadow-[0px_2px_2px_var(--shaodow-c)]';
 const bgAndTextClass = 'dark:bg-slate-800 dark:text-slate-100 bg-slate-100 text-slate-900';
-
 ---
 
 <header
     class:list={[
-        'header h-[var(--header-h)] text-base md:text-lg px-2 md:px-6 lg:px-8 z-10',
+        'header text-base md:text-lg px-2 md:px-6 lg:px-8 z-10 relative',
         dividerClass,
         bgAndTextClass,
+        outClass,
     ]}>
+    <div
+        class="absolute left-1 top-0 bottom-0 w-[var(--header-h)] flex items-center md:hidden hover:text-sky-500 cursor-pointer"
+        aria-label="expand sidebar"
+        id="expand-sidebar"> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 28 28">
+            <path
+                fill="currentColor"
+                d="M17.72 11.53a.75.75 0 1 1 1.06-1.06l3 3a.75.75 0 0 1 0 1.06l-3 3a.75.75 0 1 1-1.06-1.06l1.72-1.72h-5.69a.75.75 0 0 1 0-1.5h5.69zM26 7.75A3.75 3.75 0 0 0 22.25 4H5.755a3.75 3.75 0 0 0-3.75 3.75v12.5A3.75 3.75 0 0 0 5.754 24H22.25A3.75 3.75 0 0 0 26 20.25zM22.25 5.5a2.25 2.25 0 0 1 2.25 2.25v12.5a2.25 2.25 0 0 1-2.25 2.25H11.006v-17zm-12.745 0v17H5.754a2.25 2.25 0 0 1-2.25-2.25V7.75a2.25 2.25 0 0 1 2.25-2.25z"
+            ></path>
+        </svg>
+    </div>
     <div class="container mx-auto h-full flex justify-end items-center">
         <h2 class="text-xl md:text-2xl font-bold mx-auto">{header}</h2>
 
@@ -47,3 +59,50 @@ const bgAndTextClass = 'dark:bg-slate-800 dark:text-slate-100 bg-slate-100 text-
         transform: translateY(0);
     }
 </style>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const expandSidebar = document.getElementById('expand-sidebar');
+        const sidebar = document.getElementById('sidebar');
+        if (!sidebar) {
+            throw new Error('sidebar not found');
+        }
+        if (!expandSidebar) {
+            throw new Error('expandSidebar not found');
+        }
+
+        // 点击按钮展开侧边栏
+        expandSidebar.addEventListener('click', (e) => {
+            sidebar.classList.toggle('expanded');
+            e.stopImmediatePropagation();
+
+            // 点击页面其他位置收起侧边栏
+            const outsideClickHandler = (e: MouseEvent) => {
+                if (e.target !== sidebar && !sidebar.contains(e.target as Node)) {
+                    sidebar.classList.remove('expanded');
+                    document.body.removeEventListener('click', outsideClickHandler, {
+                        capture: true,
+                    });
+                }
+            };
+            // 使用 touch 事件收起侧边栏
+            const touchStartHandler = (e: TouchEvent) => {
+                const startX = e.touches[0].clientX;
+                const touchMoveHandler = (e: TouchEvent) => {
+                    const moveX = e.touches[0].clientX;
+                    if (startX - moveX > 10) {
+                        sidebar.classList.remove('expanded');
+                        sidebar.removeEventListener('touchstart', touchStartHandler);
+                    }
+                };
+                sidebar.addEventListener('touchmove', touchMoveHandler, {once: true});
+            };
+
+            document.body.removeEventListener('click', outsideClickHandler, {capture: true});
+            sidebar.removeEventListener('touchstart', touchStartHandler);
+
+            document.body.addEventListener('click', outsideClickHandler, {capture: true});
+            sidebar.addEventListener('touchstart', touchStartHandler);
+        });
+    });
+</script>

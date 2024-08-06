@@ -10,7 +10,7 @@
     }
 
     .prose {
-        max-width: 82ch;
+        max-width: 80ch;
     }
     /*  prose influence blockquote style */
     .prose :where(blockquote p:first-of-type)::before {
@@ -30,11 +30,11 @@
          /* margin-left: calc(100vw - 100%); */
         margin-right: calc(100% - 100vw);
         overflow-x: hidden; /* 宽度变宽后，会出现横向滚动条 */
+        padding-right:calc(100vw - 100%);
     }
     body {
         overflow: auto;
         min-height: 100vh;
-        --header-h:4rem;
     }
 
     /* rehype-autolink-headings */
