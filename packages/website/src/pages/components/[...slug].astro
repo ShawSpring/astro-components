@@ -13,11 +13,31 @@ export const getStaticPaths = (async () => {
 
 const {entry} = Astro.props;
 const {Content} = await entry.render();
+const keywords =`Astro components,${entry.data.keywords||''}`;
 ---
 
 <Layout
     title={`${entry.slug} | ${entry.collection}`}
     header={entry.data.title}
+    keywords={keywords}
     description="Astro components">
     <Content />
 </Layout>
+
+
+<style is:global> 
+    .custom-expansion {
+		padding: 0 1rem;
+        width: 50%;
+        border: 1px solid #887766;
+        border-radius: 1rem;
+    }
+    .custom-expansion .toggle {
+        text-align: center;
+        height: 3rem;
+        line-height: 3rem;
+    }
+    .custom-expansion h2 {
+        text-align: center;
+    }
+</style>

@@ -1,22 +1,93 @@
 ---
-title: Expansion Item
+title: Expansion Item 
+keywords: ExpansionItem, Accordion
 ---
 
 
-
 ## Usage
+>[!tip] left sidebar used `Expansion` 
 
-import { Expansion } from '@shawspring/astro-components';  
+import { Expansion, Tabs, TabItem } from '@shawspring/astro-components';  
 
-<Expansion heading="assets" class="not-prose w-28 bg-slate-500 p-2">
+````md
+<Expansion heading="assets">
+  - css
+  - image
+  - js
+</Expansion> 
+````
+The code above generates the following tabs on the page:
+
+<Expansion heading="assets">
   - css
   - image
   - js
 </Expansion> 
 
+### Customize style
+set a custom class as a prefix to avoid css conflict, and promote the specificity. 
+<Tabs>
+  <TabItem label="mdx">
+  ````md {3}
+  import { Expansion } from '@shawspring/astro-components';  
+
+  <Expansion heading="assets" class="custom-expansion">
+    - css
+    - image
+    - js 
+  </Expansion>  
+  ````
+  </TabItem>
+  <TabItem label="css">
+  ```astro {1} 
+  <style is:global>
+      .custom-expansion {
+      padding: 0 1rem;
+          width: 50%;
+          border: 1px solid #887766;
+          border-radius: 1rem;
+      }
+      .custom-expansion .toggle {
+          text-align: center;
+          height: 3rem;
+          line-height: 3rem;
+      }
+      .custom-expansion h2 {
+          text-align: center;
+      }
+  </style>
+  ```
+  </TabItem>
+</Tabs>
+
+The code above generates the following tabs on the page:
+
+<Expansion heading="assets" class="custom-expansion">
+  - css
+  - image
+  - js 
+</Expansion>  
 
 
-## preview 
- just see left nav sidebar.
+## Props
+```ts
+export interface Props {
+    /**
+     * at least one children required for slot
+     */
+    children: any;
+    heading: string;
+    /**
+     * initial expand state, default is true
+     */
+    expand?: boolean;
+    /**
+     *  custom class names appended to the component
+     */
+    class?: string;   
+}
+```
 
- [source code](https://github.com/ShawSpring/astro-components/blob/main/packages/website/src/components/entriesNav.astro)
+
+
+

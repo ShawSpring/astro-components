@@ -3,6 +3,13 @@ title: guide
 order: 0 
 ---
 
+## astro components
+ a component library for Astro, but it is not complete yet.
+
+Issues and pull requests are welcomed!
+
+[github](https://github.com/ShawSpring/astro-components/tree/main/packages/astro-components)
+
 ## features 
 
 - support SSG
@@ -38,7 +45,67 @@ import { Tabs, TabItem } from '@shawspring/astro-components';
 - [x] Tabs  
 
 
+## customization  
+There have 3 ways to customize: 
+1. all components have a `class` prop for root element.
+ you can customize global styles. 
 
-## github url 
+2. just copy source code and customize css. 
 
-[astro-components](https://github.com/ShawSpring/astro-components/tree/main/packages/astro-components)
+3. Reuse a built-in component. for example:
+```astro title='CustomExpansion.astro'
+---
+import {Expansion, type ExpansionProps} from '@shawspring/astro-components';
+interface Props extends ExpansionProps {}
+Astro.props.class = `${Astro.props.class} custom-expansion`;
+---
+
+<Expansion {...Astro.props}>
+    <div class="px-4"><slot /></div>
+</Expansion>
+
+<style is:global>
+    .custom-expansion {
+    padding: 0 1rem;
+        width: 50%;
+        border: 1px solid #887766;
+        border-radius: 1rem;
+    }
+    .custom-expansion .toggle {
+        text-align: center;
+        height: 3rem;
+        line-height: 3rem;
+    }
+    .custom-expansion h2 {
+        text-align: center;
+    }
+</style>
+```
+
+## under the hood
+take `<Tabs>` as an example:
+
+>[!Hint] `<Tabs>` will be transformed to **custom element** but without **shadowRoot**.  
+> ```js
+> <ss-tabs data-sync-key={syncKey} class={className}>
+>			<nav class="tabs-nav" role="tablist">
+>				{Array.from(data.keys()).map((label, i) => (
+>					<div class:list={['tabs-nav-item', i === 0 && 'active']} role="tab">
+>						{label}
+>					</div>
+>				))}
+>			</nav>
+>			<div class="tabs-content">
+>				{Array.from(data.values()).map((content, i) => (
+>					<div class:list={['tabs-content-item', i === 0 && 'active']} role="tabpanel">
+>						<Fragment set:html={content} />
+>					</div>
+>				))}
+>			</div>
+>		</ss-tabs>
+> </ss-tabs>
+> ```
+
+>[!Hint]  do nothing in CSR（Client-Side Rendering）  
+> without shadowRoot, all js just works for hydration.   
+> so SSG will work well.  

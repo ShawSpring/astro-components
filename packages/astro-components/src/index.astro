@@ -1,8 +1,9 @@
 ---
-import Tabs from './Tabs.astro';
-import TabItem from './TabItem.astro';
-import Expansion from './Expansion.astro';
+import Tabs, {type Props as TabsProps} from './Tabs.astro';
+import TabItem, {type Props as TabItemProps} from './TabItem.astro';
+import Expansion,{type Props as ExpansionProps} from './Expansion.astro';
 
 export {Tabs, TabItem,Expansion};
+export type {ExpansionProps, TabsProps, TabItemProps};
+--- 
 
----

@@ -7,13 +7,15 @@ import rehypeCallout from 'rehype-callout';
 // const calloutOptions = {
 // }
 
-//  expressive-code bug, build产物css文件路径不对。弃用 
-// https://github.com/expressive-code/expressive-code/issues/221 
+
 import expressiveCode from "astro-expressive-code";
+
+import externalLinks from "remark-external-links"
 
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 // import { h } from "hastscript";
+//  set icon in  css background-image
 const AnchorLinkIcon = {
   type: 'element',
   tagName: 'span',
@@ -30,6 +32,7 @@ export default defineConfig({
     nesting: true   
   }), expressiveCode(), mdx()],  
   markdown: {      
+    remarkPlugins: [[externalLinks,{rel:'noopener'}]],
     rehypePlugins: [     
       rehypeCallout, 
       rehypeSlug,

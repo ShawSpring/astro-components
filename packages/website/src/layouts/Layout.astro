@@ -19,6 +19,8 @@ interface Props {
 }
 const {title,keywords,
 description ="docs for shaw spring's package"} = Astro.props;
+
+const bgAndTextClass = 'dark:bg-gray-800 dark:text-slate-100 bg-slate-50 text-slate-900';
 ---  
 
 <!doctype html>
@@ -35,8 +37,7 @@ description ="docs for shaw spring's package"} = Astro.props;
 
 		<title>{title}</title>
 	</head>
-	<body class="relative dark:bg-gray-800 dark:text-slate-100 bg-slate-50 text-slate-900\
-	  [--sidebar-w:16rem] flex justify-end">
+	<body class={bgAndTextClass + " relative [--sidebar-w:16rem] flex justify-end"}> 
 		<div class="relative w-[calc(100%-var(--sidebar-w))]">      
 			<Header header={Astro.props.header} /> 
 			<main class="container mx-auto lg:w-[800px] px-2 pt-8 mb-16 mt-[var(--header-h)]">
@@ -53,3 +54,5 @@ description ="docs for shaw spring's package"} = Astro.props;
 		
 	</body>
 </html>
+
+

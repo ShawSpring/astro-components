@@ -31,29 +31,28 @@ const runPluginFromMarkdown = async (input: string, config: Partial<Config> = {}
 
 interface Props {
     md: string;
-    /**
-     * whether display output html,default is true
-     */
-    previewHtml?: boolean;
 }
-const {md, previewHtml = true} = Astro.props;
+const {md} = Astro.props;
 const html = await runPluginFromMarkdown(md);
 
 import {Tabs, TabItem} from '@shawspring/astro-components';
 ---
 
-<Tabs contentCls="!mt-0">
+<Tabs itemClass="margin0">
     <TabItem label="markdown">
         <Code code={md} lang="markdown" />
     </TabItem>
     <TabItem label="output">
         <Fragment set:html={html} />
     </TabItem>
-    {
-        previewHtml && (
-            <TabItem label="html">
-                <Code code={html.trim()} lang="html" />
-            </TabItem>
-        )
-    }
+
+    <TabItem label="html">
+        <Code code={html.trim()} lang="html" />
+    </TabItem>
 </Tabs>
+
+<style>
+    .margin0 {
+        margin: 0;
+    }
+</style>

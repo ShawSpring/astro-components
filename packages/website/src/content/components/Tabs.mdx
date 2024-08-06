@@ -1,5 +1,6 @@
 ---
-title: Tabs
+title: Tabs 
+keywords: Tabs
 ---
 
 import { Tabs, TabItem } from '@shawspring/astro-components';  
@@ -9,6 +10,8 @@ import { Tabs, TabItem } from '@shawspring/astro-components';
 
 
 ````md title="example.mdx" 
+import { Tabs, TabItem } from '@shawspring/astro-components';  
+
 <Tabs>
 <TabItem label="counterStore.ts">
 ```ts
@@ -72,7 +75,7 @@ export const useCounterStore = defineStore('counter', {
 
 ## Props
 ```ts
-interface Props {
+export interface Props {
 	/**
 	 * All `<Tabs>` on a page with the same `syncKey` value will display the same active panel.
 	 */
@@ -82,9 +85,13 @@ interface Props {
 	 */
 	children: any;
 	/**
-	 * custom class names for content of tab-item
+	 *  custom class names appended to the component
 	 */
-	contentCls?: string;
+	class?: string;
+	/**
+	 * custom class names appended to the content of `<TabItem>`
+	 */ 
+	itemClass?: string;
 }
 ```
 
@@ -175,15 +182,3 @@ The code above generates the following on the page:
 </Tabs>
 
 
-## under the hood
-
-
->[!Hint] `<Tabs>` will be transformed to **custom element**:  
-> ```js
-> <ss-tabs data-sync-key={syncKey}>
-> </ss-tabs>
-> ```
-
->[!Hint]  do nothing in CSR（Client-Side Rendering）  
-> without shadowRoot, all js just works for hydration.   
-> so SSG will work well.  

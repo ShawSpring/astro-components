@@ -1,6 +1,8 @@
+<!-- 这一段必须是 is:inline 置于<head>中，防止flush of style  --> 
 <script is:inline>
     const ItemKey = 'theme';
     const themeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+    const themeAttr = 'data-theme';
 
     if (typeof localStorage !== 'undefined') {
         localStorage = {
@@ -8,14 +10,13 @@
             setItem: () => undefined,
         };
     }
-   /* 这一段必须是 is:inline 置于<head>中，防止flush of style */
     const getThemePreference = () => {
         if (localStorage.getItem('theme') !== 'system') {
             return localStorage.getItem(ItemKey);
         }
         return themeMedia.matches ? 'dark' : 'light';
     };
-    document.documentElement.setAttribute('data-theme', getThemePreference());
+    document.documentElement.setAttribute(themeAttr, getThemePreference());
 
     window.addEventListener('DOMContentLoaded', () => {
         const themeSelect = document.querySelector('select[name="theme"]');
@@ -29,18 +30,18 @@
             const theme = event.target.value;
             if (theme === 'system') {
                 document.documentElement.setAttribute(
-                    'data-theme',
+                    themeAttr,
                     themeMedia.matches ? 'dark' : 'light',
                 );
             } else {
-                document.documentElement.setAttribute('data-theme', theme);
+                document.documentElement.setAttribute(themeAttr, theme);
             }
             localStorage.setItem(ItemKey, theme);
         });
         // 监听系统主题变化
         themeMedia.addEventListener('change', (e) => {
           if(themeSelect.value === 'system'){
-            document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+            document.documentElement.setAttribute(themeAttr, e.matches ? 'dark' : 'light');
           } 
         })
     });

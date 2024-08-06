@@ -4,7 +4,7 @@ import {TabItemTagname} from './TabItem.astro';
 import {fromHtml} from 'hast-util-from-html';
 import {toHtml} from 'hast-util-to-html';
 
-interface Props {
+export interface Props {
 	/**
 	 * All `<Tabs>` on a page with the same `syncKey` value will display the same active panel.
 	 */
@@ -14,16 +14,20 @@ interface Props {
 	 */
 	children: any;
 	/**
-	 * custom class names for content of tab-item
+	 *  custom class names appended to the component
 	 */
-	contentCls?: string;
+	class?: string;
+	/**
+	 * custom class names appended to the content of `<TabItem>`
+	 */ 
+	itemClass?: string;
 }
 
-const {syncKey, contentCls} = Astro.props;
+//*  the data-astro-cid-* attribute is included in rest. 
+const {syncKey, class: className, itemClass, ...rest} = Astro.props;
 
 const html = await Astro.slots.render('default');
 const data = parseTabs(html);
-
 function parseTabs(html: string): Map<string, string> {
 	const hast = fromHtml(html, {fragment: true});
 	const data = new Map();
@@ -37,8 +41,10 @@ function parseTabs(html: string): Map<string, string> {
 		}
 
 		for (const child of node.children) {
-			if (child.type === 'element' && contentCls) {
-				child.properties.class = `${child.properties.class || ''} ${contentCls}`.trim();
+			if (child.type === 'element') {
+				child.properties.class =
+					`${child.properties.class || ''} ${itemClass || ''}`.trim();
+				Object.assign(child.properties, rest);
 			}
 		}
 		data.set(node.properties.dataLabel as string, toHtml(node.children));
@@ -49,7 +55,7 @@ function parseTabs(html: string): Map<string, string> {
 
 {
 	data.size > 0 ? (
-		<ss-tabs data-sync-key={syncKey}>
+		<ss-tabs data-sync-key={syncKey} class={className}>
 			<nav class="tabs-nav" role="tablist">
 				{Array.from(data.keys()).map((label, i) => (
 					<div class:list={['tabs-nav-item', i === 0 && 'active']} role="tab">

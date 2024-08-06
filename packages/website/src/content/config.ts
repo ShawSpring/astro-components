@@ -1,4 +1,5 @@
 import { defineCollection,z } from "astro:content";
+import { describe } from "node:test";
 
 const calloutCollection = defineCollection({
 	type: "content",
@@ -29,6 +30,10 @@ const componentsCollection = defineCollection({
 		 * Lower numbers are displayed higher up in the link group.
 		 */
 		order: z.number().optional(),
+		/**
+		 * 
+		 */
+		keywords: z.string().optional(),
 	}),
 });
 

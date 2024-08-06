@@ -6,22 +6,20 @@ const {header} = Astro.props;
 
 const dividerClass =
     '[--shaodow-c:theme(colors.zinc.300/70%)] dark:[--shaodow-c:theme(colors.zinc.700/70%)] shadow-[0px_2px_2px_var(--shaodow-c)]';
+const bgAndTextClass = 'dark:bg-slate-800 dark:text-slate-100 bg-slate-100 text-slate-900';
+
 ---
 
 <header
     class:list={[
         'header h-[var(--header-h)] text-base md:text-lg px-2 md:px-6 lg:px-8 z-10',
         dividerClass,
-        'dark:bg-gray-800 dark:text-slate-100 bg-slate-50 text-slate-900',
+        bgAndTextClass,
     ]}>
-    <div
-        class="container mx-auto h-full flex justify-end items-center">
-
+    <div class="container mx-auto h-full flex justify-end items-center">
         <h2 class="text-xl md:text-2xl font-bold mx-auto">{header}</h2>
 
-        <select
-            name="theme"
-            class="cursor-pointer dark:bg-slate-800 dark:text-slate-100 bg-slate-50 text-slate-900">
+        <select name="theme" class={'cursor-pointer ' + bgAndTextClass}>
             <option value="system" class="tex-base md:text-lg">System</option>
             <option value="light" class="tex-base md:text-lg">Light</option>
             <option value="dark" class="tex-base md:text-lg">Dark</option>

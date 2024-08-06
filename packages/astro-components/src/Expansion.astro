@@ -1,5 +1,5 @@
 ---
-interface Props {
+export interface Props {
     /**
      * at least one children required for slot
      */
@@ -12,10 +12,9 @@ interface Props {
     /**
      *  custom class names appended to the component
      */
-    class?: string;
+    class?: string;    
 }
 
-// `post` 将匹配 `blog` 集合 schema 类型
 const {heading, expand = true, class: className} = Astro.props;
 ---
 
@@ -23,7 +22,7 @@ const {heading, expand = true, class: className} = Astro.props;
     <!-- margin失效, 需要从它的父元素设置-->
     <div class="toggle" aria-expanded={expand ? 'true' : 'false'}>
         <h2 class="toggle-heading">{heading}</h2>
-        <div aria-hidden="true" class="toggle-icon">
+        <div class="toggle-icon" aria-hidden="true" >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="1.25rem"
@@ -40,7 +39,7 @@ const {heading, expand = true, class: className} = Astro.props;
         </div>
     </div>
     <div class="content">
-        <slot />
+        <slot data-label={heading} />
     </div>
 </ss-expansion>
 
@@ -56,8 +55,7 @@ const {heading, expand = true, class: className} = Astro.props;
 
             this.firstElementChild?.addEventListener('click', () => {
                 const state = toggle.getAttribute('aria-expanded') === 'true' ? 'false' : 'true';
-                console.log(toggle.getAttribute('aria-expanded'));
-                toggle.setAttribute('aria-expanded', state); 
+                toggle.setAttribute('aria-expanded', state);
                 if (state === 'true') {
                     content.style.setProperty('height', 'auto');
                     const height = content.getBoundingClientRect().height;
@@ -96,6 +94,8 @@ const {heading, expand = true, class: className} = Astro.props;
     .toggle-heading {
         font-weight: bold;
         user-select: none;
+        flex-grow: 1;
+        margin: 0;
     }
     .toggle-icon {
         transition: transform 0.3s ease-out;

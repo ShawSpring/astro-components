@@ -1,0 +1,28 @@
+---
+import {Expansion, type ExpansionProps} from '@shawspring/astro-components';
+interface Props extends ExpansionProps {}
+Astro.props.class = `${Astro.props.class} custom-expansion`;
+
+---
+
+<Expansion {...Astro.props}>
+    <div class="px-4"><slot /></div>
+</Expansion>
+
+<style is:global>
+    .custom-expansion {
+    padding: 0 1rem;
+        width: 50%;
+        border: 1px solid #887766;
+        border-radius: 1rem;
+    }
+    .custom-expansion .toggle {
+        text-align: center;
+        height: 3rem;
+        line-height: 3rem;
+    }
+    .custom-expansion h2 {
+        text-align: center;
+    }
+</style>
+
