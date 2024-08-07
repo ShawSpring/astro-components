@@ -9,12 +9,12 @@ export const getStaticPaths = (async () => {
         params: {slug: entry.slug},
         props: {entry},
     }));
-}) satisfies GetStaticPaths;
+}) satisfies GetStaticPaths;  
 
 const {entry} = Astro.props;
 const keywords =`Astro components,${entry.data.keywords||''}`;
 
-const {Content,remarkPluginFrontmatter} = await entry.render();
+const {Content,remarkPluginFrontmatter,headings} = await entry.render();
 
 const lastModified = remarkPluginFrontmatter.lastModified;
 ---

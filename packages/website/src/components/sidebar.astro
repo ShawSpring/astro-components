@@ -1,7 +1,7 @@
 ---
 // 左侧的nav sidebar
 
-import {calloutEntries, componentsEntries} from '@/utils/getCollection';
+import {calloutEntries, componentsEntries,remarkEntries} from '@/utils/getCollection';
 import EntriesNav from './entriesNav.astro';
 // import {Image} from 'astro:assets';
 import logo from '@/assets/ss.png';
@@ -41,8 +41,9 @@ const bgAndTextClass = 'dark:bg-slate-800 dark:text-slate-100 bg-slate-100 text-
     <nav class="dark:text-gray-200 text-gray-800 my-2 flex flex-col gap-2">
         <EntriesNav entries={calloutEntries} title="Rehype Callout" />
         <EntriesNav entries={componentsEntries} title="Astro Components" />
+        <EntriesNav entries={remarkEntries} title="Remark Plugins" />
     </nav>
-</aside>
+</aside> 
 
 <script>
      window.addEventListener('DOMContentLoaded', () => {

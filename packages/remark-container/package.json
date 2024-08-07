@@ -1,0 +1,29 @@
+{
+  "name": "@shawspring/remark-container",
+  "version": "0.0.0",
+  "description": "This is a remark plugin to wrap something in custom containers, based on remark-directive",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["remark","remark-plugin","remark-container"],
+  "author": "ShawSpring <chunlaixiao@163.com>",
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "README.md"
+  ],
+  "devDependencies": {
+    "mdast-util-directive": "^3.0.0",
+    "mdast-util-to-hast": "^13.2.0",
+    "remark-directive": "^3.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "hastscript": "^9.0.0",
+    "unist-util-visit": "^5.0.0"
+  }
+}

@@ -13,6 +13,9 @@ import expressiveCode from "astro-expressive-code";
 import externalLinks from "remark-external-links"
 import { remarkModifiedTime } from './src/utils/remark-modified-time.mjs';
 
+import remarkDirective from 'remark-directive'
+import remarkContainer from '@shawspring/remark-container'
+
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 // import { h } from "hastscript";
@@ -33,7 +36,10 @@ export default defineConfig({
     nesting: true   
   }), expressiveCode(), mdx()],  
   markdown: {      
-    remarkPlugins: [[externalLinks,{rel:'noopener'}],remarkModifiedTime], 
+    remarkPlugins: [[externalLinks,{rel:'noopener'}],
+    remarkModifiedTime,
+    remarkDirective,
+    remarkContainer], 
     rehypePlugins: [     
       rehypeCallout, 
       rehypeSlug,

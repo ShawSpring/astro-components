@@ -1,0 +1,32 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+import type {GetStaticPaths} from 'astro';
+import {remarkEntries} from '@/utils/getCollection'
+
+export const getStaticPaths = (async () => {
+    return remarkEntries.map((entry) => ({
+        params: {slug: entry.slug},
+        props: {entry},
+    }));
+}) satisfies GetStaticPaths;  
+
+const {entry} = Astro.props;
+const keywords =`remark plugin,${entry.data.keywords||''}`;
+
+
+const {Content,remarkPluginFrontmatter,headings} = await entry.render();
+
+const lastModified = remarkPluginFrontmatter.lastModified; 
+---
+
+<Layout
+    title={`${entry.slug} | ${entry.collection}`}
+    header={entry.data.title}
+    keywords={keywords}
+    lastModified={lastModified}
+    description="remark plugin"> 
+    <Content />
+</Layout>
+
+

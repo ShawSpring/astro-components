@@ -13,6 +13,10 @@ const componentsEntries = await getCollection("components", ({ data }) => {
     return PROD ? data.draft !== true : true;
 });
 
+const remarkEntries = await getCollection("remarkPlugin", ({ data }) => {
+    return PROD ? data.draft !== true : true;
+})
+
 // 排序， 数字越小越在前面，没有order排后面。
 calloutEntries.sort((a, b) => {
     return (a.data.order ?? 2 ** 32) - (b.data.order ?? 2 ** 32);
@@ -20,7 +24,10 @@ calloutEntries.sort((a, b) => {
 componentsEntries.sort((a, b) => {
 	return (a.data.order ?? 2 ** 32) - (b.data.order ?? 2 ** 32);
 });
-export { calloutEntries, componentsEntries };
+remarkEntries.sort((a, b) => {
+    return (a.data.order ?? 2 ** 32) - (b.data.order ?? 2 ** 32);
+})
+export { calloutEntries, componentsEntries ,remarkEntries}; 
 
 
 
