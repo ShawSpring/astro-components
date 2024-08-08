@@ -136,7 +136,7 @@ const rehypeCallout: Plugin<[Partial<Config>], Root> = (config = {}) => {
 						? h(
 								"div",
 								{ class: `${cfg.prefix}-expand` },
-								// fromHtml(cfg.expandIcon, { space: "svg", fragment: true }),
+								fromHtml(cfg.expandIcon, { space: "svg", fragment: true }),
 							)
 						: null,
 				),

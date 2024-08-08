@@ -1,14 +1,14 @@
 {
   "name": "rehype-callout",
-  "version": "0.0.11",
+  "version": "0.1.0",  
   "description": "A rehype plugin for Obsidian callouts",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "prebuild": "pnpm lint && rimraf dist/",
+    "prebuild": "pnpm run test && rimraf dist/", 
     "build": "tsc --project tsconfig.build.json",
     "lint": "biome lint --write --unsafe ./src",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest run", 
     "publish": "pnpm publish --access public --no-git-checks",
     "prepublishOnly": "pnpm build"
   },
@@ -26,7 +26,7 @@
     "rehype-plugin"
   ],
   "author": "ShawSpring <chunlaixiao@163.com>",
-  "repository": { 
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/ShawSpring/astro-components.git",
     "directory": "packages/rehype-callout"
@@ -40,14 +40,17 @@
     "dist/*",
     "callout.css",
     "README.md"
-  ], 
+  ],
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "hast-util-to-string": "^3.0.0",
     "hast-util-from-html": "^2.0.1",
+    "hast-util-to-string": "^3.0.0",
     "hastscript": "^9.0.0",
     "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
+    "vitest": "^2.0.3"
   }
 }

@@ -105,6 +105,10 @@ importers:
       unist-util-visit:
         specifier: ^5.0.0
         version: 5.0.0
+    devDependencies:
+      vitest:
+        specifier: ^2.0.3
+        version: 2.0.3(@types/node@20.14.10)(terser@5.31.3)
 
   packages/remark-container:
     dependencies:

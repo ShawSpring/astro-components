@@ -2,11 +2,18 @@
 This is a remark plugin to wrap something in custom containers, based on [remark-directive](https://www.npmjs.com/package/remark-directive).
 you can passing arbitrary attributes to container, see [remark-attr](https://www.npmjs.com/package/remark-attr) for more details.
 
+for example: `:::container{class="grid grid-cols-2"}` will easily implement a grid layout.     
+the render result [preview](https://shawspring.github.io/astro-components/remarkPlugin/remarkcontainer/)
+
 ## install
-```npm 
+:::container{class="grid grid-cols-2"}
+```bash 
 npm install @shawspring/remark-container
 ```
-
+```bash
+yarn add @shawspring/remark-container 
+```
+:::
 
 ## usage
 >[!NOTE]

@@ -1,6 +1,7 @@
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
+import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
 import plugin from "../src/index";
 import { defaultConfig, type Config } from "../src/config";
@@ -16,11 +17,13 @@ const runPluginFromMarkdown = async (
 	config: Partial<Config> = {},
 ) => {
 	const processor = unified()
-		.use(remarkParse)
+	.use(remarkParse, { fragment: true })
 		.use(remarkRehype)
 		.use(plugin, config)
+		.use(rehypeFormat)
 		.use(rehypeStringify);
-	return normalizeHtml(String(await processor.process(input)));
+	// return normalizeHtml(String(await processor.process(input)));
+	return String(await processor.process(input)).trim();  
 };
 
 const log = async (input: string,config: Partial<Config> = {},) => {
@@ -96,16 +99,16 @@ const foldable2 = `> [!faq]+ Are callouts foldable?
 
 // await log(expandable);
 // await log(typeDontExist);
-// await log(singleLine);
+await log(singleLine);
 // await log(nestedCallout);
 // await log(formattedTitle);
 // await log(nested2)
 // await log(nested3)
 
 
-const md = `>[!note] This is a **note** callout.  
-> 你好!
-> ## inner title
-> This is the content!`;
+// const md = `>[!note] This is a **note** callout.  
+// > 你好!
+// > ## inner title
+// > This is the content!`;
 
-await log(md);
+// await log(md);

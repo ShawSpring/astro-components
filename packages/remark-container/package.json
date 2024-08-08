@@ -1,19 +1,30 @@
 {
   "name": "@shawspring/remark-container",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "This is a remark plugin to wrap something in custom containers, based on remark-directive",
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish": "pnpm publish --access public --no-git-checks"
+
   },
-  "keywords": ["remark","remark-plugin","remark-container"],
+  "keywords": ["remark-plugin","remark-container","grid layout","remark-directive"],
   "author": "ShawSpring <chunlaixiao@163.com>",
   "license": "MIT",
   "files": [
     "index.js",
-    "README.md"
+    "README.md" 
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ShawSpring/astro-components/tree/main/packages/remark-container",
+    "directory": "packages/remark-container"  
+  }, 
+  "bugs": {
+    "url": "https://github.com/ShawSpring/astro-components/issues"
+  },
+  "homepage": "https://shawspring.github.io/astro-components/remarkPlugin/remarkcontainer/",
   "devDependencies": {
     "mdast-util-directive": "^3.0.0",
     "mdast-util-to-hast": "^13.2.0",

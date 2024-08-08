@@ -3,9 +3,13 @@ import type {CollectionEntry, CollectionKey} from 'astro:content';
 interface Props {
     entries: CollectionEntry<CollectionKey>[];
     title?: string;
+      /**
+     * initial expand state, default is true
+     */
+     expand?: boolean;
 }
 
-const {entries, title} = Astro.props;
+const {entries, title,expand} = Astro.props;
 
 import {Expansion} from '@shawspring/astro-components';
 
@@ -23,7 +27,8 @@ const liClass =
 
 <Expansion
     heading={title || entries[0].collection}
-    class:list={[hasCurrentUrl && 'hightlight-heading-when-close']}>
+    class:list={[hasCurrentUrl && 'hightlight-heading-when-close']}
+    expand={expand}>
     <ul>
         {
             entries.map((entry) => (

@@ -36,7 +36,7 @@ This is a rehype plugin that parses Obsidian's callout syntax
 > >[!example] ~~del~~ *em* **strong** <span style="color: red">red</span> 
 > ````
 
-#### support all [obsidan callout types](/rehype-callout/types)
+#### support all [obsidan callout types](/astro-components/callout/supported-types/)
 
 
 #### nested callouts

@@ -1,7 +1,9 @@
 
-##  monorepo for `rehype-callout` plugin 
+##  monorepo for `Astro-components` and `rehype-callout` plugin 
 
-see plugin: [rehype-callout](packages/rehype-callout/README.md)
+see [Astro-components](packages/astro-components/README.md)
+
+see [rehype-callout](packages/rehype-callout/README.md)
 
 
 

@@ -1,4 +1,26 @@
-<!-- ## format
+
+## normal callout
+>[!note] this is a note         
+> note content     
+> bac929
+
+  
+> [!abstract]   
+> what do you *like*?          
+> - apple  
+> - banana
+> - orange
+
+## Single line
+
+>[!info] This is a singleLine callout.
+
+>[!info]+ singleLine callout with `+`.
+
+>[!note] *abc*   
+  
+
+## format
 
 >[!example] ~~del~~ *em*  <span style="color: red">red</span> 
 > ````md
@@ -6,6 +28,18 @@
 > ````
 
 
+## default title
+>[!info]
+> first line is empty.  
+> content of  the **info** callout.
+
+
+> [!abstract]  
+> first line is empty but two whitespace
+> - apple
+> - banana
+> - orange
+ 
 
 ## nested callouts
 
@@ -24,14 +58,6 @@
 > > nested content
 
 
-> [!abstract]   
-> what do you *like*?
-> - apple
-> - banana
-> - orange
-
-
-
 ## foldable 
 > [!faq]- Are callouts foldable?  
 > Yes! In a foldable callout, the contents are hidden when the callout is collapsed.  
@@ -47,20 +73,6 @@
 > - orange
 
 
-
-
-## default title
->[!info]
-> first line is empty.  
-> content of  the **info** callout.
-
-
-> [!abstract]  
-> first line is empty but two \<br \>
-> - apple
-> - banana
-> - orange
-
 ## type dont exist
 
 >[!dontexist] This is a **note** callout.  
@@ -68,22 +80,6 @@
   
 
 
-## Single line
-
->[!info] This is a singleLine callout.
-
->[!info]+ singleLine callout with `+`. -->
 
 
 
->[!note] this is a note         
-> note content     
-> bac929
-
-
-> [!abstract]  
-> what do you *like*?          
-> abc
-> - apple
-> - banana
-> - orange
