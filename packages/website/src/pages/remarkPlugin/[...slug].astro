@@ -2,22 +2,21 @@
 import Layout from '@/layouts/Layout.astro';
 
 import type {GetStaticPaths} from 'astro';
-import {remarkEntries} from '@/utils/getCollection'
+import {remarkEntries} from '@/utils/getCollection';
 
 export const getStaticPaths = (async () => {
     return remarkEntries.map((entry) => ({
         params: {slug: entry.slug},
         props: {entry},
     }));
-}) satisfies GetStaticPaths;  
+}) satisfies GetStaticPaths;
 
 const {entry} = Astro.props;
-const keywords =`remark plugin,${entry.data.keywords||''}`;
+const keywords = `remark plugin,${entry.data.keywords || ''}`;
 
+const {Content, remarkPluginFrontmatter, headings} = await entry.render();
 
-const {Content,remarkPluginFrontmatter,headings} = await entry.render();
-
-const lastModified = remarkPluginFrontmatter.lastModified; 
+const lastModified = remarkPluginFrontmatter.lastModified;
 ---
 
 <Layout
@@ -26,8 +25,51 @@ const lastModified = remarkPluginFrontmatter.lastModified;
     keywords={keywords}
     lastModified={lastModified}
     description="remark plugin"
-    headings={headings}> 
+    headings={headings}>
     <Content />
 </Layout>
 
-
+<style is:global>
+    .steps-container {
+        counter-reset: steps-counter;
+        --bullet-size: 1.5em;
+        --w-left: calc(var(--bullet-size) + 1em);
+        --margin-bottom: 1em;
+    }
+    .steps-container > :not(ol) {
+        padding-inline-start: var(--w-left);
+        margin-bottom: var(--margin-bottom);
+        position: relative;
+    }
+    .steps-container > ol {
+        list-style: none;
+        counter-increment: steps-counter;
+        padding-inline-start: var(--w-left);
+        position: relative;
+    }
+    .steps-container > ol::before {
+        content: counter(steps-counter);
+        position: absolute;
+        inset-inline-start: 0;
+        bottom: 0;
+        box-sizing: content-box;
+        width: var(--bullet-size);
+        height: var(--bullet-size);
+        line-height: var(--bullet-size);
+        text-align: center;
+        border-radius: 50%;
+        border: 2px solid steelblue;
+    }
+    .steps-container > ol:hover::before {
+        background-color: steelblue;
+    }
+    .steps-container > :not(ol):not(:last-of-type)::before {
+        content: '';
+        position: absolute;
+        inset-inline-start: calc(var(--bullet-size) / 2 + 2px); 
+        top: 0;
+        bottom:calc(var(--margin-bottom) * -1); 
+        box-sizing: border-box;
+        border: 1px solid grey; 
+    }
+</style>

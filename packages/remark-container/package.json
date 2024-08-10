@@ -1,6 +1,6 @@
 {
   "name": "@shawspring/remark-container",
-  "version": "0.0.2",
+  "version": "0.0.3",  
   "description": "This is a remark plugin to wrap something in custom containers, based on remark-directive",
   "type": "module",
   "main": "index.js",

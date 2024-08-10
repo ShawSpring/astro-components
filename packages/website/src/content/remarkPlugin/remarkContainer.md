@@ -83,4 +83,94 @@ console.log(String(file))
 
 
 
- 
+## Examples
+implement steps:
+
+:::container{.steps-container .not-prose} 
+1. install remark-container
+```bash
+npm install @shawspring/remark-container
+```
+
+2. import remark-container
+```ts
+import remarkContainer from '@shawspring/remark-container'
+```
+
+3. use remark-container
+```ts
+ markdown: {      
+    remarkPlugins: [remarkContainer]
+ }
+```
+::: 
+
+the source code is as follows: 
+
+````md title="example.md"
+:::container{.steps-container .not-prose} 
+1. install remark-container
+```bash
+npm install @shawspring/remark-container
+```
+
+2. import remark-container
+```ts
+import remarkContainer from '@shawspring/remark-container'
+```
+
+3. use remark-container
+```ts
+  ...
+```
+::: 
+````
+and css file as follows:
+```html title="steps.astro"
+<style is:global>
+    .steps-container {
+        counter-reset: steps-counter;
+        --bullet-size: 1.5em;
+        --w-left: calc(var(--bullet-size) + 1em);
+        --margin-bottom: 1em;
+    }
+    .steps-container > :not(ol) {
+        padding-inline-start: var(--w-left);
+        margin-bottom: var(--margin-bottom);
+        position: relative;
+    }
+    .steps-container > ol {
+        list-style: none;
+        counter-increment: steps-counter;
+        padding-inline-start: var(--w-left);
+        position: relative;
+    }
+    .steps-container > ol::before {
+        content: counter(steps-counter);
+        position: absolute;
+        inset-inline-start: 0;
+        bottom: 0;
+        box-sizing: content-box;
+        width: var(--bullet-size);
+        height: var(--bullet-size);
+        line-height: var(--bullet-size);
+        text-align: center;
+        border-radius: 50%;
+        border: 2px solid steelblue;
+    }
+    .steps-container > ol:hover::before {
+        background-color: steelblue;
+    }
+    .steps-container > :not(ol):not(:last-of-type)::before {
+        content: '';
+        position: absolute;
+        inset-inline-start: calc(var(--bullet-size) / 2 + 2px); 
+        top: 0;
+        bottom:calc(var(--margin-bottom) * -1); 
+        box-sizing: border-box;
+        border: 1px solid grey; 
+    }
+</style>
+
+```
+

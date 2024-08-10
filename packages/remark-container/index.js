@@ -41,8 +41,8 @@ export default function remarkContainer(config = {}) {
 				node.attributes = {
 					...cfg.attributes,
 					...node.attributes,
-					class: `${cfg.attributes.class||""} ${node.attributes.class || ""}`,
-					style: `${cfg.attributes.style||""} ${node.attributes.style || ""}`,
+					class: `${cfg.attributes.class||""} ${node.attributes.class || ""}`.trim(),
+					style: `${cfg.attributes.style||""} ${node.attributes.style || ""}`.trim(),
 				};
 				// console.log(node.attributes);
 				data.hProperties = h(tagName, node.attributes || {}).properties;
