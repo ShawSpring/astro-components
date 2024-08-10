@@ -10,7 +10,12 @@ import rehypeCallout from 'rehype-callout';
 
 import expressiveCode from "astro-expressive-code";
 
-import externalLinks from "remark-external-links"
+import rehypeExternalLinks from 'rehype-external-links'
+import { fromHtml } from "hast-util-from-html";
+const exteranlLink = fromHtml(`<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
+	<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 9H3v20h20V18M18 4h10v10m0-10L14 18" />
+</svg>`,{space:'svg',fragment:true})
+
 import { remarkModifiedTime } from './src/utils/remark-modified-time.mjs';
 
 import remarkDirective from 'remark-directive'
@@ -36,7 +41,7 @@ export default defineConfig({
     nesting: true   
   }), expressiveCode(), mdx()],  
   markdown: {      
-    remarkPlugins: [[externalLinks,{rel:'noopener'}],
+    remarkPlugins: [
     remarkModifiedTime,
     remarkDirective,
     remarkContainer], 
@@ -55,7 +60,13 @@ export default defineConfig({
           content: AnchorLinkIcon,
         },
       ],
-    ],
+      [rehypeExternalLinks,
+      { rel:['noopener'], 
+        content:exteranlLink,   
+        contentProperties:{style:"display:inline-block;vertical-align:text-bottom;aria-hidden:true;margin-left:0.25em;"},
+        target: '_blank'
+      }], 
+    ], 
     // shikiConfig: {
     //   themes: {
     //     light: 'solarized-light',

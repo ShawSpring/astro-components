@@ -28,7 +28,7 @@ const liClass =
 <Expansion
     heading={title || entries[0].collection}
     class:list={[hasCurrentUrl && 'hightlight-heading-when-close']}
-    expand={expand}>
+    expand={hasCurrentUrl||expand}>  
     <ul>
         {
             entries.map((entry) => (

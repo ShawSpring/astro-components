@@ -14,7 +14,7 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const {entry} = Astro.props;
-const {Content,remarkPluginFrontmatter} = await entry.render(); 
+const {Content,remarkPluginFrontmatter,headings} = await entry.render(); 
 const lastModified = remarkPluginFrontmatter.lastModified;
 
 ---
@@ -24,6 +24,7 @@ const lastModified = remarkPluginFrontmatter.lastModified;
     header={entry.data.title}
     lastModified={lastModified}
     description="A rehype plugin to parse Obsidian callouts"
-    keywords="callout, obsidian, rehype, markdown,admonitions">
+    keywords="callout, obsidian, rehype, markdown,admonitions"
+    headings={headings}>
     <Content />
 </Layout>

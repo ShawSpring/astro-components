@@ -21,7 +21,7 @@ const {heading, expand = true, class: className} = Astro.props;
 <ss-expansion class={className}>
     <!-- margin失效, 需要从它的父元素设置-->
     <div class="toggle" aria-expanded={expand ? 'true' : 'false'}>
-        <h2 class="toggle-heading">{heading}</h2>
+        <div role="heading" class="toggle-heading">{heading}</div>
         <div class="toggle-icon" aria-hidden="true" >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +39,7 @@ const {heading, expand = true, class: className} = Astro.props;
         </div>
     </div>
     <div class="content">
-        <slot data-label={heading} />
+        <slot/>
     </div>
 </ss-expansion>
 
@@ -93,7 +93,8 @@ const {heading, expand = true, class: className} = Astro.props;
 
     .toggle-heading {
         font-weight: bold;
-        user-select: none;
+        font-size: large; 
+        user-select: none; 
         flex-grow: 1;
         margin: 0;
     }

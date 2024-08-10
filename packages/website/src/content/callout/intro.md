@@ -13,33 +13,19 @@ This is a rehype plugin that parses Obsidian's callout syntax
 > [!info] ES Module only
 
 
-**Table of Contents** 
-- [introduction](#introduction)
-	- [features](#features)
-		- [title and content can be formatted as normal markdown](#title-and-content-can-be-formatted-as-normal-markdown)
-		- [support all obsidan callout types](#support-all-obsidan-callout-types)
-		- [nested callouts](#nested-callouts)
-		- [foldable with `+` or `-`](#foldable-with--or--)
-	- [usage](#usage)
-	- [Configuration](#configuration)
-	- [style callouts](#style-callouts)
-		- [prefix](#prefix)
-		- [dark mode](#dark-mode)
+## features 
 
 
-### features 
-
-
-#### title and content can be formatted as normal markdown
+### title and content can be formatted as normal markdown
 >[!example] ~~del~~ *em*  **strong** <span style="color: red">red</span> 
 > ````md 
 > >[!example] ~~del~~ *em* **strong** <span style="color: red">red</span> 
 > ````
 
-#### support all [obsidan callout types](/astro-components/callout/supported-types/)
+### support all [obsidan callout types](/astro-components/callout/supported-types/)
 
 
-#### nested callouts
+### nested callouts
 
 > [!note] **outer** callout    
 > outer content  
@@ -55,7 +41,7 @@ This is a rehype plugin that parses Obsidian's callout syntax
 > >[!success] nested callout  
 > > nested content
 
-#### foldable with `+` or `-`
+### foldable with `+` or `-`
 A plus sign expands the callout by default, and a minus sign collapses it instead.
 
 > [!faq]- Are callouts foldable?  
@@ -66,7 +52,7 @@ A plus sign expands the callout by default, and a minus sign collapses it instea
 
 
 
-### usage
+## usage
 ```sh title="install"  
 npm install rehype-callout
 ```
@@ -125,7 +111,7 @@ export default defineConfig({
 ```
 
 
-### Configuration
+## Configuration
 
 ```js 
 /** @type {import('rehype-callout').Config} */
@@ -211,7 +197,7 @@ const defaultConfig: Config = {
 ```
 
 
-### style callouts 
+## style callouts 
 
 Class names are embedded in the generated HTML, so you can style them in your CSS. 
 
@@ -223,7 +209,7 @@ import  'rehype-callout/css';
 ```
 
 
-#### prefix
+### prefix
 
 >[!NOTE] to avoid css confilict  
 > customize the prefix config option.       
@@ -255,7 +241,7 @@ import  'rehype-callout/css';
 
 <br/>
 
-#### dark mode
+### dark mode
 
 > [!info] dark mode   
 > surpport dark mode by css variables 

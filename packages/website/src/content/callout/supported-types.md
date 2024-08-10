@@ -5,25 +5,7 @@ order: 1
 
 see [obsidan callout types](https://help.obsidian.md/Editing+and+formatting/Callouts#Supported+types)
 
->[!info] if type is undefined, it will be treated as `note`. 
-
-- [note](#note)
-- [abstract | summary | tldr](#abstract--summary--tldr)
-- [info](#info)
-- [todo](#todo)
-- [important](#important)
-- [tip | hint](#tip--hint)
-- [success | check | done](#success--check--done)
-- [question | help | faq](#question--help--faq)
-- [warning | caution | attention](#warning--caution--attention)
-- [failure | fail | missing](#failure--fail--missing)
-- [danger | error](#danger--error)
-- [bug](#bug)
-- [example](#example)
-- [quote | cite](#quote--cite)
-
-
-
+>[!info] if type is undefined, it will be treated as `note`.  
 
 #### note
 

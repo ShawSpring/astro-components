@@ -1,0 +1,79 @@
+---
+import type {MarkdownHeading} from 'astro';
+import type {HTMLAttributes} from 'astro/types';
+interface Props extends HTMLAttributes<'aside'> {
+    headings: MarkdownHeading[];
+}
+
+const {headings, class: outClass, ...rest} = Astro.props;
+
+const slugs = headings.map((heading) => heading.slug);
+
+const dividerClass =
+    '[--shaodow-c:theme(colors.zinc.300/60%)] dark:[--shaodow-c:theme(colors.zinc.700/60%)] shadow-[-1px_0px_1px_var(--shaodow-c)]';
+
+const liClass =
+    'hover:underline dark:text-slate-400  text-slate-700 hover:text-slate-900 dark:hover:text-slate-100';
+---
+
+<aside class:list={['', dividerClass, outClass]} {...rest} id="right-aside" data-slugs={slugs}>
+    <nav class="fixed top-[var(--header-h)] right-0 mt-4 w-[var(--rightside-w)] px-4">
+        <h2 class="font-bold text-lg mb-2">On this page</h2> 
+        <ul>
+            <li class:list={['mb-1 pl-2', liClass]}><a href="#">overview</a></li>
+            {
+                headings.map((heading) => (
+                    <li
+                        class:list={[liClass]}
+                        title={heading.text}
+                        style={{'padding-left': (heading.depth - 1) * 12 + 'px'}}>
+                        <a
+                            href={`#${heading.slug}`}
+                            class="block w-full  text-ellipsis whitespace-nowrap overflow-hidden">
+                            {heading.text}
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </nav>
+</aside>
+
+<script>
+    import createCurrentElement from '@/utils/currentElement';
+    const currentElement = createCurrentElement('current-slug');
+
+    function observeHeadings() {
+        const rightAside = document.getElementById('right-aside');
+        const slugs = rightAside?.dataset.slugs?.split(',');
+        if (!slugs || slugs.length < 1) return;
+
+        const intersectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    // console.log(entry);
+                    const anchor = rightAside?.querySelector(`a[href="#${entry.target.id}"]`) as HTMLAnchorElement;
+                    currentElement.current = anchor;
+                } else {
+                }
+            });
+        },{
+            rootMargin: '-10% 0px -80% 0px'      
+        });
+        for (const slug of slugs) {
+            const heading = document.getElementById(slug);
+            if (!heading) {
+                throw new Error(`heading ${slug} not found`);
+            }
+            intersectionObserver.observe(heading);
+        }
+    }
+    observeHeadings();
+</script>
+
+<style>
+    .current-slug{
+        font-weight: bold;
+        @apply text-emerald-500 dark:text-emerald-600;
+    }
+</style>
