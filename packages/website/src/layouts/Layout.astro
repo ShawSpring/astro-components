@@ -48,7 +48,7 @@ const bgAndTextClass = 'dark:bg-gray-800 dark:text-slate-100 bg-slate-50 text-sl
 	</head>
 	<body
 		class={bgAndTextClass + ' relative flex justify-end [--sidebar-w:16rem] [--header-h:4rem]'}>
-		<div class="relative md:w-[calc(100%-var(--sidebar-w))]"> 
+		<div class="relative w-full md:w-[calc(100%-var(--sidebar-w))]"> 
 			<Header header={Astro.props.header} class="h-[var(--header-h)]" />
 			<div class="mt-[var(--header-h)] flex justify-between">
 				<div class="container lg:w-[800px] px-8 mx-auto  overflow-hidden">  

@@ -28,7 +28,7 @@
     html{
         /* 滚动条出现时把body挤向左边, margin-left就让body远离左边一个滚动条的距离 */
          /* 100vw视口宽度包含滚动条, 100%不包含滚动条 */
-         margin-left: calc(100vw - 100%);
+         /* margin-left: calc(100vw - 100%); */
      
     }
     body {
