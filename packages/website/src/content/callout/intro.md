@@ -57,7 +57,7 @@ A plus sign expands the callout by default, and a minus sign collapses it instea
 npm install rehype-callout
 ```
 
-```js {16}
+```js {6,16}
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
