@@ -1,3 +1,5 @@
+@reference "../styles/global.css";
+
 	/* astro 自带的代码块  在dark模式下样式 */
     [data-theme='dark'] .astro-code,
     [data-theme='dark'] .astro-code span {

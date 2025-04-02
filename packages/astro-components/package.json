@@ -29,7 +29,7 @@
     "hast-util-to-html": "^9.0.1"
   },
   "peerDependencies": {
-    "astro": "^4.1.0"
+    "astro": "^5.0.0"
   },
   "publishConfig": {
     "access": "public"

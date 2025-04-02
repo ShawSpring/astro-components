@@ -51,6 +51,17 @@ A plus sign expands the callout by default, and a minus sign collapses it instea
 > Yes! In a foldable callout, the contents are hidden when the callout is collapsed.
 
 
+### dark mode
+
+> [!info] dark mode   
+> surpport dark mode by css variables 
+> ```css
+> [date-theme="dark"] [data-callout] {
+> ...
+> }
+> ```
+
+
 
 ## usage
 ```sh title="install"  
@@ -108,6 +119,11 @@ export default defineConfig({
     rehypePlugins:[rehypeCallout],
   }
 });
+```
+in Layout.astro or where you want to use callout
+
+```js
+import  'rehype-callout/css';
 ```
 
 
@@ -240,14 +256,4 @@ import  'rehype-callout/css';
 </details>
 
 <br/>
-
-### dark mode
-
-> [!info] dark mode   
-> surpport dark mode by css variables 
-> ```css
-> [date-theme="dark"] [data-callout] {
-> ...
-> }
-> ```
 

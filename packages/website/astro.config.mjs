@@ -1,5 +1,4 @@
 import { defineConfig } from 'astro/config';
-import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import rehypeCallout from 'rehype-callout';
 
@@ -13,7 +12,7 @@ import expressiveCode from "astro-expressive-code";
 import rehypeExternalLinks from 'rehype-external-links'
 import { fromHtml } from "hast-util-from-html";
 const exteranlLink = fromHtml(`<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
-	<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 9H3v20h20V18M18 4h10v10m0-10L14 18" />
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 9H3v20h20V18M18 4h10v10m0-10L14 18" />
 </svg>`,{space:'svg',fragment:true})
 
 import { remarkModifiedTime } from './src/utils/remark-modified-time.mjs';
@@ -23,23 +22,27 @@ import remarkContainer from '@shawspring/remark-container'
 
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import tailwindcss from "@tailwindcss/vite";
 // import { h } from "hastscript";
 //  set icon in  css background-image
 const AnchorLinkIcon = {
   type: 'element',
   tagName: 'span',
   properties: { ariaHidden: 'true'},
-}    
+}
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://shawspring.github.io",
-  base: "/astro-components",  /* ==> import.meta.env.BASE_URL */  
-  trailingSlash: 'never',     
-  output: "static",         
-  integrations: [tailwind({     
-    nesting: true   
-  }), expressiveCode(), mdx()],  
+  base: "/astro-components",
+
+  /* ==> import.meta.env.BASE_URL */
+  trailingSlash: 'never',
+
+  output: "static",
+
+  integrations: [ expressiveCode(), mdx()],
+
   markdown: {      
     remarkPlugins: [
     remarkModifiedTime,
@@ -76,5 +79,9 @@ export default defineConfig({
     //   // 启用自动换行，以防止水平滚动
     //   wrap: true
     // }
+  },
+
+  vite: {
+    plugins: [tailwindcss()]
   }
 });
